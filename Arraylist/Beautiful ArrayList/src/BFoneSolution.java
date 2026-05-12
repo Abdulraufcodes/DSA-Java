@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-public class Bruteforce{
-
+public class BFoneSolution {
     public static boolean isBeautiful(ArrayList<Integer> curr){
         int n = curr.size();
         for(int i=0; i<n; i++){
@@ -15,13 +14,14 @@ public class Bruteforce{
         }
         return true;
     }
-    public static void makeList(ArrayList<Integer> curr, boolean used[], int n){
+    public static boolean makeList(ArrayList<Integer> curr, boolean used[], int n){
         //base case when all elements are used
         if(curr.size() == n){
             if(isBeautiful(curr)){
                 System.out.println(curr);
+                return true;
             }
-            return;
+            return false;
         }
 
         for(int i=1; i<=n; i++){
@@ -31,12 +31,16 @@ public class Bruteforce{
                 curr.add(i);
                 used[i] = true;
 
-                makeList(curr, used, n);
+                if(makeList(curr, used, n)){
+                    return true;
+                }
+                
 
                 curr.remove(curr.size()-1);
                 used[i] = false;
             }
         }
+        return false;
     }
     public static void main(String[] args) {
         int n = 3;
